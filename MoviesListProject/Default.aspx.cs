@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
@@ -14,6 +14,9 @@ namespace MoviesListProject
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            ListBox1.Items.Clear();
+            string apiResponse = "";
+            Image1.ImageUrl = "";
             Session["FN"] = txtFN.Text;
             String movieId = "";
             if (txtFN.Text == "")
@@ -28,15 +31,22 @@ namespace MoviesListProject
             string apiKey = "7837a96568777514c9441f035ef4583a";
             HttpWebRequest apiRequest = WebRequest.Create("https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + apiKey + "") as HttpWebRequest;
 
-            string apiResponse = "";
-            using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
+            try
+                {
+                using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
+                {
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+                    apiResponse = reader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
             {
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                apiResponse = reader.ReadToEnd();
+                ListBox1.Items.Add("Given movie Id is Not found from Database");
+                return;
             }
             ResponseSearchPeople rootObject = JsonConvert.DeserializeObject<ResponseSearchPeople>(apiResponse);
 
-            ListBox1.Items.Clear();
+
             ListBox1.Items.Add("Movie Id :  "  + rootObject.id + " ");
             ListBox1.Items.Add("\n");
             ListBox1.Items.Add("Movie Name :  " + rootObject.original_title);
