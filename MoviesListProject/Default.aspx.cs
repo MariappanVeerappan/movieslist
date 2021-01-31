@@ -18,7 +18,7 @@ namespace MoviesListProject
             String movieId = "";
             if (txtFN.Text == "")
             {
-                 movieId = "550" + "/"+ "lists";
+                 movieId = "latest";
             }
             else
             {
