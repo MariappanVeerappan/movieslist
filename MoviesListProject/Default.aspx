@@ -24,7 +24,7 @@ CodeBehind="Default.aspx.cs" AutoEventWireup="true" %>
                 SelectionMode="Single"></asp:ListBox>
         </div>
         <div style="border: solid 5px red; float: left; height:400px; width: 400px;">    
-                <asp:Image ID="Image1" runat="server" AlternateText ="Movie Poster Path:" height="400px" width ="400px" />
+                <asp:Image ID="Image1" runat="server" AlternateText ="Movie Poster :" height="400px" width ="400px" />
         </div>       
 
 
